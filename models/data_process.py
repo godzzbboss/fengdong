@@ -7,7 +7,9 @@ __author__ = "BigBrother"
 """
     本文件为最终的可视化与数据处理代码
 """
+import os
 import numpy as np
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
@@ -160,17 +162,47 @@ def split_train_test2(data):
         np.savetxt(train_storepath,train_data, delimiter=",")
         np.savetxt(test_storepath, test_data, delimiter=",")
 
+def get_outlier(origin_data_path, cleaned_data_path):
+    """
+        找的异常数据并返回
+    :param origin_data_path: 原始数据文件路径
+    :param cleaned_data_path: 清洗后数据的路径
+    :return:
+    """
+    from models.myutils import open_many
+    with open_many([origin_data_path, cleaned_data_path]) as fs:
+        origin_data = pd.read_csv(fs[0])
+        cleaned_data = pd.read_csv(fs[1])
+    return origin_data, cleaned_data
+
 
 
 
 if __name__ == "__main__":
     filepath = "../data_processed/1027_16/data11.csv"
-    with open(filepath) as f:
-        data = np.loadtxt(f, delimiter=",")
-    # data = load_data(filepath)
-    # print(data)
-    # plot_data1(data)
-    # exit()
-    split_train_test2(data)
-    exit()
-    # pass
+
+    # 找到异常数据
+    origin_filepath = "../data_processed/1027_16/origin_data/"
+    cleaned_filepath = "../data_processed/1027_16/cleaned_data/"
+    origin_filenames = os.listdir(origin_filepath)
+    cleaned_filenames = os.listdir(cleaned_filepath)
+
+    for i, j in zip(origin_filenames, cleaned_filenames):
+        # print(origin_filepath+i)
+        origin_data, cleaned_data = get_outlier(origin_filepath+i, cleaned_filepath+j)
+        origin_data["攻角"] = origin_data["攻角"].apply(lambda x: round(x, 4))
+        cleaned_data["攻角"] = cleaned_data["攻角"].apply(lambda x: round(x,4))
+        # print(origin_data)
+        # print(cleaned_data)
+        # exit()
+
+
+        inds = origin_data["攻角"].isin(cleaned_data["攻角"]).apply(lambda x: not x) # 找到异常数据的索引
+        outlier_data = origin_data[inds]
+        plt.scatter(outlier_data["攻角"],outlier_data["实际MA"])
+        plt.title(i)
+        plt.show()
+        # 将异常数据保存
+        storepath = "../data_processed/1027_16/outlier_data/"
+        outlier_data.to_csv(storepath + i, index=False)
+
