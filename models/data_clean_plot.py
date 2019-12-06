@@ -27,9 +27,9 @@ def set_size(fig=None, w=None, h=None, w_mul=1.0, h_mul=1.0):
     if h is None:
         h = Tk().winfo_screenheight()
         # print( '\n{}\n{}\n'.format(w, h))
-    w *= w_mul
-    h *= h_mul
-    figManager.setGeometry(0,0,w,h) # (0,0)表示图片左上角起始位置
+    w_ = w * w_mul
+    h_ = h * h_mul
+    figManager.setGeometry(w/2,0,w_,h_) # (0,0)表示图片左上角起始位置
 
 mas = [0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1]
 
@@ -161,7 +161,7 @@ filepath1 = "../outliers_detect/data/cleaned/"
 storepath = "../outliers_detect/figures/figs/"
 # filenames = ["5_0.1.csv","6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
 filenames = ["5_0.1.csv", "6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
-for filename in filenames[5:6]:
+for filename in filenames[0:1]:
     # aoa_speed = filename.split("_")[1][:3]
     fig = plt.figure(figsize=(10, 15), tight_layout=True)
     set_size(fig=fig, w_mul=0.6)
@@ -284,11 +284,11 @@ for filename in filenames[5:6]:
 # y_s2_10 = np.array(loadmat(filepath+"y_s2_test_10.mat")["y_s2_test"])
 #
 # ax1 =  fig.add_subplot(1,2,1)
-# ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="预测值", LineWidth=1)
-# ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
-# ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
-#                     color="#a6cee3", alpha=0.6, label="95%置信区间")
-# ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
+# # ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="预测值", LineWidth=1)
+# # ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
+# # ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
+# #                     color="#a6cee3", alpha=0.6, label="95%置信区间")
+# # ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
 # ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="Pred", LineWidth=1)
 # ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
 # ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
@@ -310,14 +310,13 @@ for filename in filenames[5:6]:
 # handles, labels = ax1.get_legend_handles_labels()
 # ax1.legend(handles,labels, fontsize=2.5, loc="upper left")
 #
-#
 # ax2 =  fig.add_subplot(1,2,2)
-# ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="预测值", LineWidth=1)
-# ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
-# ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
-#                     color="#a6cee3", alpha=0.6, label="95%置信区间")
-# ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
-# ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=5, c="#756bb1", marker=".", zorder=2, label="加入的数据")
+# # ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="预测值", LineWidth=1)
+# # ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
+# # ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
+# #                     color="#a6cee3", alpha=0.6, label="95%置信区间")
+# # ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
+# # ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=5, c="#756bb1", marker=".", zorder=2, label="加入的数据")
 # ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="Pred", LineWidth=1)
 # ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
 # ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
@@ -338,6 +337,7 @@ for filename in filenames[5:6]:
 # # ax2.set_xlabel("Angle of attack", fontdict={"fontsize":8})
 # # ax2.set_ylabel("Rotate speed/" + "$10^{3}$", fontdict={"fontsize": 8})
 # plt.show()
+
 
 
 """
@@ -503,23 +503,26 @@ for filename in filenames[5:6]:
 # plt.rcParams['figure.dpi'] = 700 #分辨率
 #
 # filepath = "../data_processed/1027_16/group_test_results/"
-# origin_data = np.array(loadmat(filepath+"0.9_origin_data.mat")["sort_data_test_origin"])
+# origin_data = np.array(loadmat(filepath+"0.8_origin_data.mat")["sort_data_test_origin"])
 # plt.rcParams['savefig.dpi'] = 700 #分辨率
 #
 #
-# filepath = "../data_processed/1027_16/group_test_results/"
-# origin_data = np.array(loadmat(filepath+"0.8_origin_data.mat")["sort_data_test_origin"])
+# # filepath = "../data_processed/1027_16/group_test_results/"
+# # origin_data = np.array(loadmat(filepath+"0.8_origin_data.mat")["sort_data_test_origin"])
 # aoa = origin_data[:,0]
 #
 # true_y = np.array([i/1000 for i in origin_data[:,3].ravel()]).reshape(-1,1)
 #
-# add_pred_y = np.array([i/1000 for i in np.array(loadmat(filepath+"0.9_pred_y.mat")["sort_y_mean_test"]).ravel()]).reshape(-1,1)
-# ard_pred_y = np.array([i/1000 for i in np.array(loadmat(filepath+"ard_0.9_pred_y.mat")["sort_y_mean_test"]).ravel()]).reshape(-1,1)
+# add_pred_y = np.array([i/1000 for i in np.array(loadmat(filepath+"0.8_pred_y.mat")["sort_y_mean_test"]).ravel()]).reshape(-1,1)
+# ard_pred_y = np.array([i/1000 for i in np.array(loadmat(filepath+"ard_0.8_pred_y.mat")["sort_y_mean_test"]).ravel()]).reshape(-1,1)
 #
 # add_diff_y = np.abs(true_y - add_pred_y)
 # ard_diff_y = np.abs(true_y - ard_pred_y)
-#
-#
+# # print(ard_diff_y)
+# # exit()
+# print(np.var(ard_diff_y))
+# print(np.var(add_diff_y))
+# exit()
 # fig = plt.figure(figsize=(10,6), tight_layout=True)
 # ax1 = fig.add_subplot(1,2,1)
 # ax1.plot(aoa, true_y, color="r", LineWidth=1, label="真实值")
@@ -565,17 +568,17 @@ for filename in filenames[5:6]:
 #
 # add_diff_y = np.abs(true_y - add_pred_y)
 # ard_diff_y = np.abs(true_y - ard_pred_y)
-#
-#
+
+
 # fig = plt.figure(figsize=(6,6), tight_layout=True)
 # set_size(fig=fig, w_mul=0.6)
 
 # ax1 = fig.add_subplot(1,1,1)
-# ax1.plot(aoa, true_y, color="r", LineWidth=0.8, label="True")
+# ax1.plot(aoa, true_y, color="r", LineWidth=0.6, label="True")
 # # ax1.plot(aoa, add_pred_y, color="b", LineWidth=1.5, label="Predicton of Add-GPR")
 # # ax1.plot(aoa, ard_pred_y, color="#32CD32", LineWidth=1.5, label="Predicton of S-GPR")
-# ax1.plot(aoa, add_pred_y, color="b", LineWidth=0.8, label="Add-GPR")
-# ax1.plot(aoa, ard_pred_y, color="#32CD32", LineWidth=0.8, label="S-GPR")
+# ax1.plot(aoa, add_pred_y, color="b", LineWidth=0.6, label="ADD-GPR")
+# ax1.plot(aoa, ard_pred_y, color="#32CD32", LineWidth=0.6, label="SE-GPR")
 # handle1s, label1s = ax1.get_legend_handles_labels()
 # ax1.legend(handle1s, label1s, fontsize="2.5", loc="best")
 # ax1.set_xlim(-5,10)
@@ -585,20 +588,20 @@ for filename in filenames[5:6]:
 # # ax1.set_ylabel("Rotational speed/"+"$10^{3}$", fontdict={"fontsize":8})
 # ax1.set_xlabel("Angle of attack", fontdict={"fontsize":4})
 # ax1.set_ylabel("Rotate speed/"+"$10^{3}$", fontdict={"fontsize":4})
-# ax1.set_title("0.8 MA", fontdict={"fontsize":4})
+# # ax1.set_title("0.8 MA", fontdict={"fontsize":4})
 # # y_min = min(min(true_y), min(add_pred_y), min(ard_pred_y))
 # # y_max = max(max(true_y), max(add_pred_y), max(ard_pred_y))
 # # ax1.set_ylim(y_min-(y_max-y_min)/5, y_max)
-# ax1.set_ylim(1.535, 1.885)
+# ax1.set_ylim(1.490, 2.340)
 # # ax1.set_yticks(np.arange(y_min-(y_max-y_min)/5, y_max+(y_max-y_min)/5, (y_max-y_min)/5))
-# ax1.set_yticks(np.arange(1.535, 1.885 , 0.070))
+# ax1.set_yticks(np.arange(1.490, 2.340+0.070 , 0.170))
 # # ax1.set_yticklabels(["%.3f" % i for i in np.arange(y_min-(y_max-y_min)/5, y_max+(y_max-y_min)/5, (y_max-y_min)/5)], fontdict={"fontsize": 4})
-# ax1.set_yticklabels(["%.3f" % i for i in np.arange(1.535, 1.885 , 0.070)], fontdict={"fontsize": 4})
+# ax1.set_yticklabels(["%.3f" % i for i in np.arange(1.490, 2.340+0.070 , 0.170)], fontdict={"fontsize": 4})
 
 
 # ax2 = fig.add_subplot(1,1,1)
-# ax2.plot(aoa, add_diff_y, color="b", LineWidth=0.8, label="Add-GPR")
-# ax2.plot(aoa, ard_diff_y, color="#32CD32", LineWidth=0.8, label="S-GPR")
+# ax2.plot(aoa, add_diff_y, color="b", LineWidth=0.6, label="ADD-GPR")
+# ax2.plot(aoa, ard_diff_y, color="#32CD32", LineWidth=0.6, label="SE-GPR")
 # handle2s, label2s = ax2.get_legend_handles_labels()
 # ax2.legend(handle2s, label2s, fontsize="2.5", loc="best")
 # ax2.set_xlim(-5,10)
@@ -606,15 +609,15 @@ for filename in filenames[5:6]:
 # ax2.set_xticklabels(np.arange(-5, 15, 5), fontdict={"fontsize": 4})
 # ax2.set_xlabel("Angle of attack", fontdict={"fontsize":4})
 # ax2.set_ylabel("Absolute error", fontdict={"fontsize":4})
-# ax2.set_title("0.8 MA", fontdict={"fontsize":4})
+# # ax2.set_title("0.8 MA", fontdict={"fontsize":4})
 # # y_min = min(min(add_diff_y), min(ard_diff_y))
 # # y_max = max(max(add_diff_y), max(ard_diff_y))
 # # ax2.set_ylim(y_min, y_max)
-# ax2.set_ylim(0, 0.175)
+# ax2.set_ylim(0.152, 0.662)
 # # ax2.set_yticks(np.arange(y_min, y_max+(y_max-y_min)/5, (y_max-y_min)/5))
-# ax2.set_yticks(np.arange(0, 0.175 + 0.015, 0.035))
+# ax2.set_yticks(np.arange(0.152, 0.662+0.102 , 0.102))
 # # ax2.set_yticklabels(["%.3f" % i for i in np.arange(y_min, y_max+(y_max-y_min)/5, (y_max-y_min)/5)], fontdict={"fontsize": 4})
-# ax2.set_yticklabels(["%.3f" % i for i in np.arange(0, 0.175 + 0.035, 0.035)], fontdict={"fontsize": 4})
+# ax2.set_yticklabels(["%.3f" % i for i in np.arange(0.152, 0.662+0.102 , 0.102)], fontdict={"fontsize": 4})
 # # ax2.set_yticklabels(["%.2f" % i for i in np.arange(0, 0.12 + 0.02, 0.02)], fontdict={"fontsize": 4})
 #
 # plt.show()

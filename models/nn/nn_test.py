@@ -21,9 +21,9 @@ class fengdong_NN(object):
                                                                                        "norm_test1.csv")
         self.input_node = 3  # 输入层节点个数
         self.output_node = 1  # 输出层节点个数
-        self.hidden1_node = 30 # 隐藏层1节点个数
-        self.hidden2_node = 25 # 隐藏层2节点个数
-        self.hidden3_node = 25  # 隐藏层2节点个数
+        self.hidden1_node = 40 # 隐藏层1节点个数
+        self.hidden2_node = 30 # 隐藏层2节点个数
+        self.hidden3_node = 30  # 隐藏层2节点个数
         self.batch_size = 280  # batch
         self.learning_rate_dacay = 0.995 # 学习率衰减系数
         self.global_step = tf.Variable(0, trainable=False)
