@@ -7,7 +7,6 @@ __author__ = "BigBrother"
 import numpy as np
 import pandas as pd
 import matplotlib as mpl
-# mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -149,70 +148,70 @@ mas = [0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0, 1.05, 1.1]
 """
     可视化异常数据，英文
 """
-mpl.rcParams['font.sans-serif'] = ['times new roman']  # 指定默认字体
-mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
-mpl.rcParams['xtick.direction'] = 'in'
-mpl.rcParams['ytick.direction'] = 'in'
-plt.rcParams['figure.dpi'] = 600 #分辨率
-# plt.style.use("seaborn-ticks")
-# filepath1 = "../data_processed/1027_16/cleaned_data/"
-# filepath1 = "../data_processed/1027_16/origin_data/"
-filepath1 = "../outliers_detect/data/cleaned/"
-storepath = "../outliers_detect/figures/figs/"
-# filenames = ["5_0.1.csv","6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
-filenames = ["5_0.1.csv", "6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
-for filename in filenames[0:1]:
-    # aoa_speed = filename.split("_")[1][:3]
-    fig = plt.figure(figsize=(10, 15), tight_layout=True)
-    set_size(fig=fig, w_mul=0.6)
-    ax = fig.add_subplot(1, 1, 1)
-    with open(filepath1 + filename) as f:
-        data = pd.read_csv(f)
-        # data["角速度"] = aoa_speed
-        # data = data.round({"MA": 5, "实际MA": 5, "攻角": 3, "实际转速": 3, "目标转速": 3, "截面积": 4})
-        # data.to_csv(filepath1+filename, index=False)
-    # print(data)
-    # exit()
-    # # 只保留攻角-4~10内的数据
-    # index = np.logical_and(data["攻角"]>=-4,data["攻角"]<=10)
-    # data = data[index]
-    # print(data)
-    # exit()
-    # print(filename)
-    ax.scatter(data["攻角"], data["实际MA"], s=1, c="blue", marker=".")
-    print(data["MA"][0], data["角速度"][0])
-    # ax.set_title(str("MA=%.1f" % data["MA"][0]) + "," + str(data["角速度"][0]) + "°/s", fontdict={"fontsize": 4})
-    ax.set_xlim(-6, 12)
-    # ax.axhline(y=data["MA"][0] + 0.001, linewidth=0.5, linestyle="--")
-    # ax.axhline(y=data["MA"][0] - 0.001, linewidth=0.5, linestyle="--")
-    ax.set_xticks(np.arange(-4,12,2))
-    ax.set_xticklabels(np.arange(-4,12,2), fontdict={"fontsize": 4})
-    y_min = np.min(data["实际MA"]) - 0.001
-    y_max = np.max(data["实际MA"]) + 0.001
-    ax.set_ylim(y_min, y_max)
-    ax.set_yticks(np.arange(y_min, y_max + (y_max - y_min)/3, (y_max - y_min)/3))
-    ax.set_yticklabels(["%.3f" % i for i in np.arange(y_min, y_max + (y_max - y_min) / 3, (y_max - y_min) / 3)], fontdict={"fontsize": 4})
-    # ax.set_xlim(-6, 12)
-    # # ax.axhline(y=data["MA"][0] + 0.001, linewidth=0.5, linestyle="--")
-    # # ax.axhline(y=data["MA"][0] - 0.001, linewidth=0.5, linestyle="--")
-    # ax.set_xticks(np.arange(-6,12 + 2,2))
-    # ax.set_xticklabels(np.arange(-6, 12 + 2,2), fontdict={"fontsize": 4})
-    # y_min = np.min(data["实际MA"]) - 0.001
-    # y_max = np.max(data["实际MA"]) + 0.001
-    # ax.set_ylim(y_min, y_max)
-    # ax.set_ylim(0.696, 0.711)
-    # ax.set_yticks(np.arange(y_min, y_max + (y_max - y_min)/3, (y_max - y_min)/3))
-    # ax.set_yticklabels(["%.3f" % i for i in np.arange(y_min, y_max + (y_max - y_min) / 3, (y_max - y_min) / 3)], fontdict={"fontsize": 4})
-
-    # ax.set_yticks(np.arange(0.696, 0.711, 0.005))
-    # ax.set_yticklabels(["%.3f" % i for i in np.arange(0.696, 0.711, 0.005)],fontdict={"fontsize": 4})
-
-    ax.set_xlabel("Angle of attack", fontdict={"fontsize": 4})
-    ax.set_ylabel("Actual Mach number", fontdict={"fontsize": 4})
-    ax.grid(linestyle="-.", linewidth=0.4)
-    plt.show()
-    # fig.savefig(storepath+str(data["MA"][0])+"_"+str(data["角速度"][0])+".png", dpi=600)
-# plt.show()
+# mpl.rcParams['font.sans-serif'] = ['times new roman']  # 指定默认字体
+# mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
+# mpl.rcParams['xtick.direction'] = 'in'
+# mpl.rcParams['ytick.direction'] = 'in'
+# plt.rcParams['figure.dpi'] = 600 #分辨率
+# # plt.style.use("seaborn-ticks")
+# # filepath1 = "../data_processed/1027_16/cleaned_data/"
+# # filepath1 = "../data_processed/1027_16/origin_data/"
+# filepath1 = "../outliers_detect/data/cleaned/"
+# storepath = "../outliers_detect/figures/figs/"
+# # filenames = ["5_0.1.csv","6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
+# filenames = ["5_0.1.csv", "6_0.2.csv","7_0.2.csv","8_0.2.csv","9_0.1.csv","10_0.2.csv"]
+# for filename in filenames[0:1]:
+#     # aoa_speed = filename.split("_")[1][:3]
+#     fig = plt.figure(figsize=(10, 15), tight_layout=True)
+#     set_size(fig=fig, w_mul=0.6)
+#     ax = fig.add_subplot(1, 1, 1)
+#     with open(filepath1 + filename) as f:
+#         data = pd.read_csv(f)
+#         # data["角速度"] = aoa_speed
+#         # data = data.round({"MA": 5, "实际MA": 5, "攻角": 3, "实际转速": 3, "目标转速": 3, "截面积": 4})
+#         # data.to_csv(filepath1+filename, index=False)
+#     # print(data)
+#     # exit()
+#     # # 只保留攻角-4~10内的数据
+#     # index = np.logical_and(data["攻角"]>=-4,data["攻角"]<=10)
+#     # data = data[index]
+#     # print(data)
+#     # exit()
+#     # print(filename)
+#     ax.scatter(data["攻角"], data["实际MA"], s=1, c="blue", marker=".")
+#     print(data["MA"][0], data["角速度"][0])
+#     # ax.set_title(str("MA=%.1f" % data["MA"][0]) + "," + str(data["角速度"][0]) + "°/s", fontdict={"fontsize": 4})
+#     ax.set_xlim(-6, 12)
+#     # ax.axhline(y=data["MA"][0] + 0.001, linewidth=0.5, linestyle="--")
+#     # ax.axhline(y=data["MA"][0] - 0.001, linewidth=0.5, linestyle="--")
+#     ax.set_xticks(np.arange(-4,12,2))
+#     ax.set_xticklabels(np.arange(-4,12,2), fontdict={"fontsize": 4})
+#     y_min = np.min(data["实际MA"]) - 0.001
+#     y_max = np.max(data["实际MA"]) + 0.001
+#     ax.set_ylim(y_min, y_max)
+#     ax.set_yticks(np.arange(y_min, y_max + (y_max - y_min)/3, (y_max - y_min)/3))
+#     ax.set_yticklabels(["%.3f" % i for i in np.arange(y_min, y_max + (y_max - y_min) / 3, (y_max - y_min) / 3)], fontdict={"fontsize": 4})
+#     # ax.set_xlim(-6, 12)
+#     # # ax.axhline(y=data["MA"][0] + 0.001, linewidth=0.5, linestyle="--")
+#     # # ax.axhline(y=data["MA"][0] - 0.001, linewidth=0.5, linestyle="--")
+#     # ax.set_xticks(np.arange(-6,12 + 2,2))
+#     # ax.set_xticklabels(np.arange(-6, 12 + 2,2), fontdict={"fontsize": 4})
+#     # y_min = np.min(data["实际MA"]) - 0.001
+#     # y_max = np.max(data["实际MA"]) + 0.001
+#     # ax.set_ylim(y_min, y_max)
+#     # ax.set_ylim(0.696, 0.711)
+#     # ax.set_yticks(np.arange(y_min, y_max + (y_max - y_min)/3, (y_max - y_min)/3))
+#     # ax.set_yticklabels(["%.3f" % i for i in np.arange(y_min, y_max + (y_max - y_min) / 3, (y_max - y_min) / 3)], fontdict={"fontsize": 4})
+#
+#     # ax.set_yticks(np.arange(0.696, 0.711, 0.005))
+#     # ax.set_yticklabels(["%.3f" % i for i in np.arange(0.696, 0.711, 0.005)],fontdict={"fontsize": 4})
+#
+#     ax.set_xlabel("Angle of attack", fontdict={"fontsize": 4})
+#     ax.set_ylabel("Actual Mach number", fontdict={"fontsize": 4})
+#     ax.grid(linestyle="-.", linewidth=0.4)
+#     plt.show()
+#     # fig.savefig(storepath+str(data["MA"][0])+"_"+str(data["角速度"][0])+".png", dpi=600)
+# # plt.show()
 
 
 
@@ -257,86 +256,93 @@ for filename in filenames[0:1]:
     0.9马赫数条件下测试
 
 """
-# mpl.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
-# mpl.rcParams['font.sans-serif'] = ['times new roman']  # 指定默认字体
-# mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
-# plt.rcParams['figure.dpi'] = 700  # 分辨率
-# mpl.rcParams['xtick.direction'] = 'in'
-# mpl.rcParams['ytick.direction'] = 'in'
-#
-#
-# filepath = "../data_processed/1027_16/0.9_results/"
-#
-#
-# fig = plt.figure(figsize=(10,6), tight_layout=True)
-#
-# data_origin = np.array(loadmat(filepath + "data_origin.mat")["data_test_origin"])
-# data_5 = np.array(loadmat(filepath+"data_5.mat")["data_9_2"]) # 以5为间隔采样的的数据
-# data_10 = np.array(loadmat(filepath+"data_10.mat")["data_9_1"]) # 以10为间隔采样的的数据
-# aoa_diff = list(set(data_5[:,0]).difference(set(data_10[:,0])))
-# data_diff = data_5[[data_5[i,0] in aoa_diff for i in range(data_5.shape[0])],:]
-#
-#
-# y_mean_5 = np.array(loadmat(filepath+"y_mean_test_5.mat")["y_mean_test"])
-# y_mean_10 = np.array(loadmat(filepath+"y_mean_test_10.mat")["y_mean_test"])
-#
-# y_s2_5 = np.array(loadmat(filepath+"y_s2_test_5.mat")["y_s2_test"])
-# y_s2_10 = np.array(loadmat(filepath+"y_s2_test_10.mat")["y_s2_test"])
-#
-# ax1 =  fig.add_subplot(1,2,1)
-# # ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="预测值", LineWidth=1)
-# # ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
-# # ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
-# #                     color="#a6cee3", alpha=0.6, label="95%置信区间")
-# # ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
-# ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="Pred", LineWidth=1)
-# ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
+mpl.rcParams['font.sans-serif'] = ['SimHei']  # 指定默认字体
+mpl.rcParams['font.sans-serif'] = ['times new roman']  # 指定默认字体
+mpl.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
+plt.rcParams['figure.dpi'] = 700  # 分辨率
+mpl.rcParams['xtick.direction'] = 'in'
+mpl.rcParams['ytick.direction'] = 'in'
+
+
+filepath = "../data_processed/1027_16/bayes_0.95_rand/"
+
+
+fig = plt.figure(figsize=(10,6), tight_layout=True)
+
+data_origin = np.array(loadmat(filepath + "data_origin.mat")["data_test_origin"])
+data_5 = np.array(loadmat(filepath+"data_5.mat")["data_ma_2"]) # 以5为间隔采样的的数据
+data_10 = np.array(loadmat(filepath+"data_10.mat")["data_ma_1"]) # 以10为间隔采样的的数据
+
+
+aoa_diff = list(set(data_5[:,0]).difference(set(data_10[:,0]))) # 两个集合的差集
+data_diff = data_5[[data_5[i,0] in aoa_diff for i in range(data_5.shape[0])],:]
+
+y_mean_5 = np.array(loadmat(filepath+"y_mean_test_5.mat")["y_mean_test"])
+y_mean_10 = np.array(loadmat(filepath+"y_mean_test_10.mat")["y_mean_test"])
+
+y_s2_5 = np.array(loadmat(filepath+"y_s2_test_5.mat")["y_s2_test"])
+y_s2_10 = np.array(loadmat(filepath+"y_s2_test_10.mat")["y_s2_test"])
+
+ax1 =  fig.add_subplot(1,2,1)
+# ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="预测值", LineWidth=1)
+# ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
 # ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
-#                     color="#a6cee3", alpha=0.6, label="95% confidence interval")
-# ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="Origin data")
-#
-# ax1.set_xlim(-5, 10)
-# ax1.set_xticks(np.arange(-5,12,2))
-# ax1.set_xticklabels([i for i in np.arange(-5,12,2)], fontdict={"fontsize": 4})
-#
+#                     color="#a6cee3", alpha=0.6, label="95%置信区间")
+# ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
+ax1.plot(data_origin[:,0], y_mean_10/1000, c="#377eb8", alpha=1, zorder=1, label="Pred", LineWidth=1)
+ax1.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
+ax1.fill_between(data_origin[:,0], (y_mean_10/1000 - 2 * np.sqrt(y_s2_10/1000000)).ravel(), (y_mean_10/1000 + 2 * np.sqrt(y_s2_10/1000000)).ravel(),
+                    color="#a6cee3", alpha=0.6, label="95% confidence interval")
+ax1.scatter(data_10[:,0], data_10[:,5]/1000, s=3, c="#1a9850", marker=".", zorder=2, label="Origin data")
+
+ax1.set_xlim(-5, 10)
+ax1.set_xticks(np.arange(-5,12,2))
+ax1.set_xticklabels([i for i in np.arange(-5,12,2)], fontdict={"fontsize": 4})
+
+ax1.set_ylim(1.93, 2.05)
+ax1.set_yticks([i/1000 for i in np.arange(1930,2060,20)])
+ax1.set_yticklabels([i/1000 for i in np.arange(1930,2060,20)], fontdict={"fontsize": 4})
 # ax1.set_ylim(1.95, 2.05)
 # ax1.set_yticks([i/1000 for i in np.arange(1950,2060,20)])
 # ax1.set_yticklabels([i/1000 for i in np.arange(1950,2060,20)], fontdict={"fontsize": 4})
-#
-# ax1.set_xlabel("迎角", fontdict={"fontsize":5})
-# ax1.set_ylabel("转速/" + "$10^{3}$", fontdict={"fontsize": 5})
-# ax1.set_xlabel("Angle of attack", fontdict={"fontsize":5})
-# ax1.set_ylabel("Rotate speed/" + "$10^{3}$", fontdict={"fontsize": 5})
-# handles, labels = ax1.get_legend_handles_labels()
-# ax1.legend(handles,labels, fontsize=2.5, loc="upper left")
-#
-# ax2 =  fig.add_subplot(1,2,2)
-# # ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="预测值", LineWidth=1)
-# # ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
-# # ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
-# #                     color="#a6cee3", alpha=0.6, label="95%置信区间")
-# # ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
-# # ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=5, c="#756bb1", marker=".", zorder=2, label="加入的数据")
-# ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="Pred", LineWidth=1)
-# ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
+
+ax1.set_xlabel("迎角", fontdict={"fontsize":5})
+ax1.set_ylabel("转速/" + "$10^{3}$", fontdict={"fontsize": 5})
+ax1.set_xlabel("Angle of attack", fontdict={"fontsize":5})
+ax1.set_ylabel("Rotate speed/" + "$10^{3}$", fontdict={"fontsize": 5})
+handles, labels = ax1.get_legend_handles_labels()
+ax1.legend(handles,labels, fontsize=2.5, loc="upper left")
+
+ax2 =  fig.add_subplot(1,2,2)
+# ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="预测值", LineWidth=1)
+# ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="真实值", LineWidth=1)
 # ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
-#                     color="#a6cee3", alpha=0.6, label="95% confidence interval")
-# ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="Origin data")
-# ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=5, c="#756bb1", marker=".", zorder=2, label="Joined data")
-#
+#                     color="#a6cee3", alpha=0.6, label="95%置信区间")
+# ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=5, c="#1a9850", marker=".", zorder=2, label="原始数据")
+# ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=5, c="#756bb1", marker=".", zorder=2, label="加入的数据")
+ax2.plot(data_origin[:,0], y_mean_5/1000, c="#377eb8", alpha=1,zorder=1, label="Pred", LineWidth=1)
+ax2.plot(data_origin[:,0], data_origin[:,3]/1000, c= "#f03b20", alpha=1, zorder=1, label="True", LineWidth=1)
+ax2.fill_between(data_origin[:,0], (y_mean_5/1000 - 2 * np.sqrt(y_s2_5/1000000)).ravel(), (y_mean_5/1000 + 2 * np.sqrt(y_s2_5/1000000)).ravel(),
+                    color="#a6cee3", alpha=0.6, label="95% confidence interval")
+ax2.scatter(data_10[:,0], data_10[:,5]/1000, s=3, c="#1a9850", marker=".", zorder=2, label="Origin data")
+ax2.scatter(data_diff[:,0], data_diff[:,5]/1000, s=3, c="#756bb1", marker=".", zorder=2, label="Joined data")
+
 # ax2.set_xlim(-5, 10)
-# ax2.set_xticks(np.arange(-5,12,2))
-# ax2.set_xticklabels([i for i in np.arange(-5,12,2)], fontdict={"fontsize": 4})
-#
-# ax2.set_ylim(1.95, 2.05)
+ax2.set_xticks(np.arange(-5,12,2))
+ax2.set_xticklabels([i for i in np.arange(-5,12,2)], fontdict={"fontsize": 4})
+
+ax2.set_ylim(1.95, 2.05)
+ax2.set_yticks([i/1000 for i in np.arange(1930,2060,20)])
+ax2.set_yticklabels([i/1000 for i in np.arange(1930,2060,20)], fontdict={"fontsize": 4})
+
 # ax2.set_yticks([i/1000 for i in np.arange(1950,2060,20)])
 # ax2.set_yticklabels([i/1000 for i in np.arange(1950,2060,20)], fontdict={"fontsize": 4})
-#
-# handles_, labels_ = ax2.get_legend_handles_labels()
-# ax2.legend(handles_, labels_, fontsize="2.5", loc="upper left")
-# # ax2.set_xlabel("Angle of attack", fontdict={"fontsize":8})
-# # ax2.set_ylabel("Rotate speed/" + "$10^{3}$", fontdict={"fontsize": 8})
-# plt.show()
+
+handles_, labels_ = ax2.get_legend_handles_labels()
+ax2.legend(handles_, labels_, fontsize="2.5", loc="upper left")
+# ax2.set_xlabel("Angle of attack", fontdict={"fontsize":8})
+# ax2.set_ylabel("Rotate speed/" + "$10^{3}$", fontdict={"fontsize": 8})
+plt.show()
 
 
 

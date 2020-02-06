@@ -141,7 +141,7 @@ mpl.rcParams['ytick.direction'] = 'in'
 plt.rcParams['figure.dpi'] = 200 #分辨率
 
 abnormal_filenames = ["5_0.1.csv", "6_0.2.csv", "7_0.2.csv", "8_0.2.csv", "9_0.1.csv", "10_0.2.csv"]
-data = pd.read_csv("./data/origin/" + abnormal_filenames[2], encoding="gbk")
+data = pd.read_csv("./data/origin/" + abnormal_filenames[5], encoding="gbk")
 cols = data.columns
 # print(cols)
 # exit()
@@ -151,10 +151,15 @@ data_ = data[["攻角","实际MA","label"]]
 # data_ = t_test(data_, "实际MA", 0.96)
 
 # 孤立森林
+# ISOLATE_FOREST = False
+ISOLATE_FOREST = True
 print(data_[data_["label"]==-1])
-data_ = isolate_forest_test(data_, "实际MA", topk=8)
+data_ = isolate_forest_test(data_, "实际MA", topk=5)
 
-data1 = data_.ix[data_["pred"]==1, ["实际MA"]]
+if ISOLATE_FOREST:
+    data1 = data_.ix[data_["pred"]==1, ["实际MA"]]
+else:
+    data1 = data_[["实际MA"]]
 
 index_dict = {k:v for k, v in zip(range(data1.shape[0]), data1.index)}
 
@@ -173,45 +178,34 @@ cols = [i for i in cols if i != "cap"]
 forecast = forecast[cols]
 model.plot(forecast, xlabel='Angle of attack', ylabel='Actual Mach number')
 plt.xticks([])
-# plt.yticks([round(i,3) for i in np.arange(0.998, 1.005+0.001, 0.001)], [round(i,3) for i in np.arange(0.998, 1.005+0.001, 0.001)])
-# plt.yticks(np.arange(0.898, 0.903, 0.001), np.arange(0.898, 0.904, 0.001))
+plt.yticks([round(i,3) for i in np.arange(0.998, 1.005+0.001, 0.001)], [round(i,3) for i in np.arange(0.998, 1.005+0.001, 0.001)])
 plt.legend(["True", "Pred", "95% confidence interval"])
-plt.show()
 
 # 得到prophet的预测结果
 forecasted = get_anomaly_score_prophet(forecast)
 
-abnormal_index = forecasted[forecasted["anomaly"]==-1].index
-origin_abnormal_index = [index_dict[i] for i in abnormal_index]
-data_.ix[origin_abnormal_index, "pred"] = -1
-
-# 对anomaly_score进行归一化处理
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import roc_curve, auc
-# mm = MinMaxScaler()
-# anomaly_score = mm.fit_transform(forecasted["score"])
-
-
-
-# data_.ix[abnormal_index, "score"] = forecasted.ix[abnormal_index, 'score']
-# print(forecasted.ix[abnormal_index, 'score'])
-# print(data_.ix[data_["score"]!=0, "score"])
-# exit()
-# anomaly_score = forecasted["score"]
-# anomaly_score = anomaly_score.reshape(-1,1)
+if ISOLATE_FOREST:
+    abnormal_index = forecasted[forecasted["anomaly"]==-1].index
+    origin_abnormal_index = [index_dict[i] for i in abnormal_index]
+    data_.ix[origin_abnormal_index, "pred"] = -1
+else:
+    data_["pred"] = 1
+    abnormal_index = forecasted[forecasted["anomaly"] == -1].index
+    origin_abnormal_index = [index_dict[i] for i in abnormal_index]
+    data_.ix[origin_abnormal_index, "pred"] = -1
 
 
-fpr, tpr, thresholds = roc_curve(data_["label"], data_["pred"])
-roc_auc = auc(fpr, tpr)
-#画图，只需要plt.plot(fpr,tpr),变量roc_auc只是记录auc的值，通过auc()函数能计算出来
-plt.plot(fpr, tpr, lw=1)
-plt.show()
+from sklearn.metrics import roc_curve, auc, roc_auc_score, precision_score, recall_score
 
+# ROC曲线
+# fpr, tpr, thresholds = roc_curve(data_["label"], data_["pred"])
+# roc_auc = auc(fpr, tpr)
+# #画图，只需要plt.plot(fpr,tpr),变量roc_auc只是记录auc的值，通过auc()函数能计算出来
+# plt.plot(fpr, tpr, lw=1)
+# plt.show()
 
-
-
-
-from sklearn.metrics import precision_score, recall_score, roc_auc_score
 print(precision_score(data_['label'], data_['pred'], pos_label=-1))
 print(recall_score(data_['label'], data_['pred'], pos_label=-1))
-# print(roc_auc_score(data_['label'], roc_auc_score(data_['label'], data_["pred"]))) # decision_function值越小越异常,所以取负号)) # decision_function值越小越异常,所以取负号
+print(roc_auc_score(data_['label'], data_['pred']))
+
+plt.show()
