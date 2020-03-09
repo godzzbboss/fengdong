@@ -27,8 +27,8 @@ def fit_predict_model(dataframe,
                 changepoint_prior_scale= changepoint_prior_scale,
                 n_changepoints=n_changepoints)
     # 非线性增长趋势
-    dataframe["cap"] = round(dataframe["y"][0], 2) + 0.004
-    dataframe["floor"] = round(dataframe["y"][0], 2) - 0.004
+    dataframe["cap"] = round(dataframe["y"][0], 2) + 0.02
+    dataframe["floor"] = round(dataframe["y"][0], 2) - 0.02
 
     m = m.fit(dataframe)
     forecast = m.predict(dataframe)
@@ -74,7 +74,8 @@ def plt_scatter(data, y_true, y_pred=None, feature="实际MA", fname=None, save=
 def t_test(data, feature, confidence_interval):
     """
     对data的feature进行t值检验，将不在confidence_interval之内的
-    判为异常值
+    判为异常值.
+    这种方法存在问题，因为均值和标准差容易受异常值的影响
     :param data:
     :param feature:
     :param confidence_interval:
@@ -88,14 +89,13 @@ def t_test(data, feature, confidence_interval):
     index = np.logical_and((data_["实际MA"] >= interval[0]).values, (data_["实际MA"] <= interval[1]))
     data["pred"] = -1
     data.ix[index, "pred"] = 1 # 正常样本
-    not_index = [not i for i in index]
     # print(data_.ix[not_index, "label"])
     # exit()
     return data
 
 def isolate_forest_test(data, feature, topk=5):
     """
-    使用孤立森林对data中的feature进行采样
+    使用孤立森林对data中的feature进行异常检测
     :param data:
     :param feature:
     :return:
@@ -103,7 +103,8 @@ def isolate_forest_test(data, feature, topk=5):
     from sklearn.ensemble import IsolationForest
     data_feature = data[[feature]]
     rng = np.random.RandomState(666888)
-    clf = IsolationForest(n_estimators=400, max_samples="auto", random_state=rng)
+    clf = IsolationForest(n_estimators=400, max_samples="auto",
+                          random_state=rng, contamination='auto') # contamination='auto'时，将异常得分>0.5的判为异常
     clf.fit(data_feature)
     anomaly_score = clf.decision_function(data_feature) # 其实返回的是异常得分的相反数
 
